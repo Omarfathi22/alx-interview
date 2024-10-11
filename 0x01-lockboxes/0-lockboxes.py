@@ -3,6 +3,9 @@
 Module for unlocking boxes.
 """
 
+from functools import reduce
+
+
 def canUnlockAll(boxes):
     """
     Determine if all boxes can be opened.
@@ -18,17 +21,17 @@ def canUnlockAll(boxes):
     unlocked = [False] * n  # Track which boxes have been unlocked
     unlocked[0] = True  # The first box is unlocked
     keys = boxes[0]  # Keys from the first box
-    index = 0  # Index for processing boxes
 
-    # Iterate while there are keys to process
-    while index < n:
-        if unlocked[index]:
-            for key in boxes[index]:
-                if key < n and not unlocked[key]:  # Check if key is valid
-                    unlocked[key] = True  # Unlock the box
-            index += 1  # Move to the next box
-        else:
-            index += 1  # Continue to next box
+    # Use a set to track keys we can use to unlock boxes
+    keys_to_process = set(keys)
+
+    # Process keys until we can't find new ones
+    while keys_to_process:
+        # Unlock boxes with the current keys
+        current_key = keys_to_process.pop()
+        if current_key < n and not unlocked[current_key]:
+            unlocked[current_key] = True
+            keys_to_process.update(boxes[current_key])  # Add new keys
 
     return all(unlocked)  # Check if all boxes are unlocked
 
