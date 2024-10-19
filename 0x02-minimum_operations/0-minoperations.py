@@ -10,28 +10,23 @@ and Paste operations.
 
 def minOperations(n):
     """
-    Calculate the fewest number of operations needed to result in exactly n H characters.
-
-    Parameters:
-    n (int): The target number of H characters.
-
-    Returns:
-    int: Minimum number of operations needed, or 0 if impossible.
+    minOperations
+    Gets fewest # of operations needed to result in exactly n H characters
     """
-    if n <= 1:
+    
+    
+    if (n < 2):
         return 0
-
-    operations = 0
-    current = 1
-    factor = 1
-
-    while current < n:
-        if n % current == 0:  # If current is a factor of n
-            operations += factor  # Perform Copy All (factor) operations
-            factor = current      # Update factor to current
-            current += factor     # Simulate the Paste operation
-            operations += 1       # Count the Paste operation
-        else:
-            current += 1  # Increment current to try the next number
-
-    return operations
+    ops, root = 0, 2
+    while root <= n:
+        # if n evenly divides by root
+        if n % root == 0:
+            # total even-divisions by root = total operations
+            ops += root
+            # set n to the remainder
+            n = n / root
+            # reduce root to find remaining smaller vals that evenly-divide n
+            root -= 1
+        # increment root until it evenly-divides n
+        root += 1
+    return ops
