@@ -19,6 +19,7 @@ def minOperations(n):
     """
     
     
+
     if (n < 2):
         return 0
     ops, root = 0, 2
