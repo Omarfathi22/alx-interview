@@ -1,4 +1,4 @@
-#!/usr/bin/python3 
+#!/usr/bin/python3
 '''A script that reads stdin line by line and computes HTTP metrics.'''
 
 import sys
@@ -39,6 +39,6 @@ finally:
     print('File size: {}'.format(total_size))
     for key, value in sorted(cache.items()):
         if value != 0:
-
+            
             print('{}: {}'.format(key, value))
 
