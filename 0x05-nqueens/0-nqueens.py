@@ -3,6 +3,7 @@
 
 import sys
 
+
 def generate_solutions(row, column):
     """
     Generate all possible solutions for placing queens on an NxN chessboard.
@@ -10,11 +11,11 @@ def generate_solutions(row, column):
     Arguments:
     row -- Number of rows (queens) to place
     column -- Number of columns (board size)
-    
+
     Returns:
     solution -- List of valid configurations (solutions) of queens' placements
     """
-    solution = [[]]  
+    solution = []
     for queen in range(row):
         solution = place_queen(queen, column, solution)
     return solution
@@ -35,7 +36,6 @@ def place_queen(queen, column, prev_solution):
     safe_position = []
     for array in prev_solution:
         for x in range(column):
-            
             if is_safe(queen, x, array):
                 safe_position.append(array + [x])
     return safe_position
@@ -50,25 +50,25 @@ def is_safe(q, x, array):
     q -- Row index of the new queen
     x -- Column index of the new queen
     array -- List of positions of already placed queens
-    
+
     Returns:
     True if the position (q, x) is safe, False otherwise
     """
     if x in array:
         return False
     else:
-        
         return all(abs(array[column] - x) != q - column for column in range(q))
 
 
 def init():
     """
     Initialize and validate the input argument (N) from the command line.
-    
+
     Returns:
     n -- The size of the chessboard (N)
-    
-    Exits with status 1 if the input is invalid (not a number, less than 4, or missing).
+
+    Exits with status 1 if the input is invalid
+    (not a number, less than 4, or missing).
     """
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
@@ -89,14 +89,14 @@ def n_queens():
     Main function to solve the N-Queens problem and print all valid solutions.
     """
     n = init()
-    solutions = generate_solutions(n, n)  
-    
+    solutions = generate_solutions(n, n)
+
     for array in solutions:
         clean = []
         for q, x in enumerate(array):
-            clean.append([q, x])  
+            clean.append([q, x])
         print(clean)
 
 
-if __name__ == '__main__':
-    n_queens()  
+if __name__ == "__main__":
+    n_queens()
